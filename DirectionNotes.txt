@@ -10,7 +10,8 @@ Try out ImGui
 
 World Gen:
 
-Noise map 1: Terrain height general
+Noise map 1: Terrain height general (Perlin)
+Noise map 1b: Terrain height detail (fBm)
 	I would use fractal Brownian motion (fBm), which combines multiple layers of noise at different frequencies.
 Noise map 2: Island / Ocean Generator
 		Instead, combine:
@@ -22,3 +23,12 @@ Noise map 4: Humidity
 	I recommend using domain warping to make your climate maps more organic.
 
 Biome is selected based on the intersection of Temperature and Humidity.
+
+Create a parameter space where each dimension is a perlin function (ie Humidity, Altitude, Temperature... etc),
+	and let each biome be a point in this parameter space (ie each biome has a hard-coded set of values for each perlin function)
+To determine the Biome of a given tile you feed the coordinates of the tile into the perlin functions,
+	then find the biome closest to this tile in the parameter space. (Using distance)
+This "distance" need not be the standard "Euclidean distance" between points
+	(ie you can fine-tune so that certain dimensions have a higher priority in deciding the biome)
+
+Temp and humidity is core.

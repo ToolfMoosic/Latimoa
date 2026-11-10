@@ -22,6 +22,14 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
      ${CMAKE_SOURCE_DIR}/src/*.h)
 
 add_executable(mygame ${SOURCES})
+
+add_custom_target(copy_assets ALL
+  COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different
+          ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:mygame>/assets
+  COMMENT "Copying assets")
+add_dependencies(mygame copy_assets)
+
+
 target_include_directories(mygame PRIVATE src)
 target_link_libraries(mygame PRIVATE SDL3::SDL3 nlohmann_json::nlohmann_json)
 

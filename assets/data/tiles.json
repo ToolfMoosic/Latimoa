@@ -4,7 +4,7 @@
             "name": "grass",
             "atlas": 12,
             "variants": 4,
-            "flags": [ "buildable", "flammable" ],
+            "flags": [],
             "moveCost": 1.0,
             "fertility": 200,
             "blendPriority": 3
@@ -14,7 +14,7 @@
             "atlas": 40,
             "frames": 4,
             "frameTime": 8,
-            "flags": [ "liquid_bed" ],
+            "flags": [],
             "moveCost": 2.0,
             "blendPriority": 1
         },
@@ -25,6 +25,22 @@
             "flags": [ "solid", "opaque" ],
             "hardness": 100,
             "drops": "stone"
+        },
+        {
+            "name": "sand",
+            "atlas": 20,
+            "variants": 2,
+            "flags": [],
+            "moveCost": 1.2,
+            "blendPriority": 2
+        },
+        {
+            "name": "forest",
+            "atlas": 24,
+            "variants": 2,
+            "flags": [],
+            "moveCost": 1.6,
+            "blendPriority": 4
         }
     ]
 }

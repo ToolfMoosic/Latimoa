@@ -15,9 +15,6 @@ namespace {
     constexpr FlagName FLAG_NAMES[] = {
         {"solid",      TF_SOLID},
         {"opaque",     TF_OPAQUE},
-        {"buildable",  TF_BUILDABLE},
-        {"flammable",  TF_FLAMMABLE},
-        {"liquid_bed", TF_LIQUID_BED},
     };
 
     [[noreturn]] void fail(const std::string& file, const std::string& tile, const std::string& msg) {
@@ -146,7 +143,7 @@ void TileRegistry::loadFromFile(const std::string& path, uint32_t atlasCellCount
         const std::string& n = d.name;
 
         if (byName.count(n)) fail(path, n, "duplicate name (note: \"air\" is built in)");
-        if (defs.size() >= std::numeric_limits<TileId>::max()) fail(path, n, "too many tiles");
+        if (defs.size() >= 0xFFFF) fail(path, n, "too many tiles");
 
         d.atlasBase = static_cast<uint16_t>(readInt(jt, "atlas", 0, 0, 65535, path, n));
         d.variantCount = static_cast<uint8_t>(readInt(jt, "variants", 1, 1, 255, path, n));

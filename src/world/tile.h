@@ -4,37 +4,32 @@
 #include <vector>
 #include <unordered_map>
 
-// Enum name for every tile type
-enum TileId : uint16_t {
-	TILE_AIR,
-};
+using TileId = uint16_t;
+constexpr TileId TILE_AIR = 0;
 
 enum TileFlags : uint32_t {
     TF_SOLID = 1 << 0,   // blocks movement
+	TF_OPAQUE = 1 << 1,   // blocks vision
 };
 
 struct TileDef {
-    // identity
-    std::string name;            // "grass" (cold data, only for tools/UI/loading)
+    std::string name;
 
-    // rendering
-    uint16_t atlasBase;          // first atlas cell
-    uint8_t  variantCount;       // random variants (consecutive cells)
-    uint8_t  frameCount;         // animation frames (consecutive cells)
-    uint8_t  frameTimeTicks;
-    uint8_t  blendPriority;      // which terrain draws its edge over the neighbor
-    uint32_t minimapColor;
+    uint16_t atlasBase = 0;
+    uint8_t  variantCount = 1;
+    uint8_t  frameCount = 1;
+    uint8_t  frameTimeTicks = 10;
+    uint8_t  blendPriority = 0;
+    uint32_t minimapColor = 0xFF00FFFF;
 
-    // gameplay
-    uint32_t flags;              // TileFlags
-    float    moveCost;           // 1.0 = normal, 0 = impassable (or use TF_SOLID)
-    uint16_t hardness;           // mining time
-    TileId   minedInto;          // what it becomes when dug
-    uint16_t dropItem;           // item id, 0 = none
+    uint32_t flags = 0;
+    float    moveCost = 1.0f;
+    uint16_t hardness = 0;
+    TileId   minedInto = TILE_AIR;
+    uint16_t dropItem = 0;
 
-    // simulation
-    uint8_t  fertility;
-    uint8_t  porosity;           // how fast liquid soaks in (if you want that)
+    uint8_t fertility = 0;
+    uint8_t porosity = 0;
 };
 
 // Read-only after loading, so it is safe to share across threads.
@@ -62,3 +57,9 @@ private:
     std::vector<TileDef> defs_;
     std::unordered_map<std::string, TileId> byName_;
 };
+
+inline uint16_t atlasCell(const TileDef& d, uint32_t variant, uint32_t frame) {
+    return static_cast<uint16_t>(d.atlasBase +
+        (variant % d.variantCount) * d.frameCount +
+        (frame % d.frameCount));
+}
