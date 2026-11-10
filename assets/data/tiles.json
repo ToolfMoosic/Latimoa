@@ -1,0 +1,30 @@
+{
+    "tiles": [
+        {
+            "name": "grass",
+            "atlas": 12,
+            "variants": 4,
+            "flags": [ "buildable", "flammable" ],
+            "moveCost": 1.0,
+            "fertility": 200,
+            "blendPriority": 3
+        },
+        {
+            "name": "water_shallow",
+            "atlas": 40,
+            "frames": 4,
+            "frameTime": 8,
+            "flags": [ "liquid_bed" ],
+            "moveCost": 2.0,
+            "blendPriority": 1
+        },
+        {
+            "name": "rock",
+            "atlas": 60,
+            "variants": 2,
+            "flags": [ "solid", "opaque" ],
+            "hardness": 100,
+            "drops": "stone"
+        }
+    ]
+}

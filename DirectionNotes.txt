@@ -1,0 +1,24 @@
+
+Art:
+
+Texture Atlas is 2048x2048 with 32x32 tiles.
+
+UI:
+
+Try out ImGui
+
+
+World Gen:
+
+Noise map 1: Terrain height general
+	I would use fractal Brownian motion (fBm), which combines multiple layers of noise at different frequencies.
+Noise map 2: Island / Ocean Generator
+		Instead, combine:
+	1. A low-frequency noise map.
+	2. A distance-based island falloff. - Make larger generation chunks where each large world section places randomly a landmass center.
+	3. An ocean threshold.
+Noise map 3: Temperature 
+Noise map 4: Humidity
+	I recommend using domain warping to make your climate maps more organic.
+
+Biome is selected based on the intersection of Temperature and Humidity.
